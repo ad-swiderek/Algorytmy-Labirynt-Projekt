@@ -9,7 +9,7 @@ class Point {
         this.x = x;
         this.y = y;
     }
-};
+}
 
 class Node {
     Point pt;
@@ -19,7 +19,7 @@ class Node {
         this.pt = pt;
         this.dist = dist;
     }
-};
+}
 
 class Main {
     private static int rowCount;
@@ -33,7 +33,7 @@ class Main {
                 && maze[row][column] == 1 && visited[row][column] == false;
     }
 
-    private static void BFS(int mat[][], Point entry, Point exit) {
+    private static void findPath(int maze[][], Point entry, Point exit) {
         boolean[][] visited = new boolean[rowCount][columnCount];
         Queue<Node> queue = new ArrayDeque<>();
 
@@ -51,7 +51,7 @@ class Main {
             }
 
             for (int i = 0; i < 4; i++) {
-                if (isValid(mat, visited, currentPnt.x + leftRightMovement[i], currentPnt.y + upDownMovement[i])) {
+                if (isValid(maze, visited, currentPnt.x + leftRightMovement[i], currentPnt.y + upDownMovement[i])) {
                     visited[currentPnt.x + leftRightMovement[i]][currentPnt.y + upDownMovement[i]] = true;
                     queue.add(new Node(new Point(currentPnt.x + leftRightMovement[i], currentPnt.y + upDownMovement[i]), dist + 1));
                 }
@@ -93,7 +93,7 @@ class Main {
         }
 
         for (Point p : exit) {
-            BFS(maze, entry, p);
+            findPath(maze, entry, p);
         }
 
         if (minDist.isEmpty()) {

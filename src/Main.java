@@ -95,7 +95,6 @@ class Main {
                         System.out.println("Błędny labirynt");
                     }
                 }
-
             }
             i++;
         }
@@ -104,7 +103,11 @@ class Main {
             BFS(mat, entry, p);
         }
 
-        int minIndex = minDist.indexOf(Collections.min(minDist));
-        System.out.print("TAK " + minDist.get(minIndex));
+        if (minDist.isEmpty()) {
+            System.out.println("NIE");
+        } else {
+            int minIndex = minDist.indexOf(Collections.min(minDist));
+            System.out.print("TAK " + minDist.get(minIndex));
+        }
     }
 }

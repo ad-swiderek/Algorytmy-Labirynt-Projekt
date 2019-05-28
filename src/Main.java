@@ -25,14 +25,13 @@ class Main {
     private static int rowCount;
     private static int columnCount;
     private static ArrayList<Integer> minDist = new ArrayList<>();
-    //możliwe ruchy
-    private static final int row[] = {-1, 0, 0, 1};
-    private static final int col[] = {0, -1, 1, 0};
+    private static final int leftRightMovement[] = {-1, 0, 0, 1};
+    private static final int upDownMovement[] = {0, -1, 1, 0};
 
-    private static boolean isValid(int mat[][], boolean visited[][],
-                                   int row, int col) {
-        return (row >= 0) && (row < rowCount) && (col >= 0) && (col < columnCount)
-                && mat[row][col] == 1 && !visited[row][col];
+    private static boolean isValid(int maze[][], boolean visited[][],
+                                   int row, int column) {
+        return (row >= 0) && (row < rowCount) && (column >= 0) && (column < columnCount)
+                && maze[row][column] == 1 && !visited[row][column];
     }
 
 
@@ -40,27 +39,27 @@ class Main {
 
         boolean[][] visited = new boolean[rowCount][columnCount];
 
-        Queue<Node> q = new ArrayDeque<>();
+        Queue<Node> queue = new ArrayDeque<>();
 
         visited[entry.x][entry.y] = true;
-        q.add(new Node(entry, 0));
+        queue.add(new Node(entry, 0));
 
-        while (!q.isEmpty()) {
-            Node node = q.poll();
+        while (!queue.isEmpty()) {
+            Node node = queue.poll();
 
-            Point pt = node.pt;
+            Point currentPnt = node.pt;
             int dist = node.dist;
 
-            if (pt.x == exit.x && pt.y == exit.y) {
+            if (currentPnt.x == exit.x && currentPnt.y == exit.y) {
                 minDist.add(dist);
                 break;
             }
 
 
             for (int i = 0; i < 4; i++) {
-                if (isValid(mat, visited, pt.x + row[i], pt.y + col[i])) {
-                    visited[pt.x + row[i]][pt.y + col[i]] = true;
-                    q.add(new Node(new Point(pt.x + row[i], pt.y + col[i]), dist + 1));
+                if (isValid(mat, visited, currentPnt.x + leftRightMovement[i], currentPnt.y + upDownMovement[i])) {
+                    visited[currentPnt.x + leftRightMovement[i]][currentPnt.y + upDownMovement[i]] = true;
+                    queue.add(new Node(new Point(currentPnt.x + leftRightMovement[i], currentPnt.y + upDownMovement[i]), dist + 1));
                 }
             }
         }

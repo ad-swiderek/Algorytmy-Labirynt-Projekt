@@ -28,10 +28,9 @@ class Main {
     private static final int leftRightMovement[] = {-1, 0, 0, 1};
     private static final int upDownMovement[] = {0, -1, 1, 0};
 
-    private static boolean isValid(int maze[][], boolean visited[][],
-                                   int row, int column) {
+    private static boolean isValid(int maze[][], boolean visited[][], int row, int column) {
         return (row >= 0) && (row < rowCount) && (column >= 0) && (column < columnCount)
-                && maze[row][column] == 1 && !visited[row][column];
+                && maze[row][column] == 1 && visited[row][column] == false;
     }
 
 

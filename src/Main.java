@@ -33,11 +33,8 @@ class Main {
                 && maze[row][column] == 1 && visited[row][column] == false;
     }
 
-
     private static void BFS(int mat[][], Point entry, Point exit) {
-
         boolean[][] visited = new boolean[rowCount][columnCount];
-
         Queue<Node> queue = new ArrayDeque<>();
 
         visited[entry.x][entry.y] = true;
@@ -45,7 +42,6 @@ class Main {
 
         while (!queue.isEmpty()) {
             Node node = queue.poll();
-
             Point currentPnt = node.pt;
             int dist = node.dist;
 
@@ -53,7 +49,6 @@ class Main {
                 minDist.add(dist);
                 break;
             }
-
 
             for (int i = 0; i < 4; i++) {
                 if (isValid(mat, visited, currentPnt.x + leftRightMovement[i], currentPnt.y + upDownMovement[i])) {
@@ -69,7 +64,7 @@ class Main {
         Scanner sc = new Scanner(file);
         rowCount = sc.nextInt();
         columnCount = sc.nextInt();
-        int[][] mat = new int[rowCount][columnCount];
+        int[][] maze = new int[rowCount][columnCount];
         String line;
         Point entry = null;
         ArrayList<Point> exit = new ArrayList<>();
@@ -80,14 +75,14 @@ class Main {
             if (i != -1) {
                 for (int j = 0; j < columnCount; j++) {
                     if (line.charAt(j) == 'X') {
-                        mat[i][j] = 0;
+                        maze[i][j] = 0;
                     } else if (line.charAt(j) == 'O') {
-                        mat[i][j] = 1;
+                        maze[i][j] = 1;
                     } else if (line.charAt(j) == 'S') {
-                        mat[i][j] = 1;
+                        maze[i][j] = 1;
                         entry = new Point(i, j);
                     } else if (line.charAt(j) == 'W') {
-                        mat[i][j] = 1;
+                        maze[i][j] = 1;
                         exit.add(new Point(i, j));
                     } else {
                         System.out.println("Błędny labirynt");
@@ -98,7 +93,7 @@ class Main {
         }
 
         for (Point p : exit) {
-            BFS(mat, entry, p);
+            BFS(maze, entry, p);
         }
 
         if (minDist.isEmpty()) {
